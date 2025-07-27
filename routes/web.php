@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttendingConference;
+use App\Http\Controllers\ConferencesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
@@ -15,6 +17,10 @@ Route::middleware([
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    Route::resource('conferences', ConferencesController::class);
+
+    Route::post('/conferences/{conference}/attending', AttendingConference::class)->name('attend-conference');
 });
 
 require __DIR__.'/settings.php';
